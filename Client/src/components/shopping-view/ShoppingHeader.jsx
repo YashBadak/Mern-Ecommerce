@@ -9,7 +9,7 @@ import { shoppingViewHeaderMenuItems } from '@/config';
 
 import { Avatar, AvatarFallback } from '../ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '../ui/dropdown-menu';
-import { logoutUser } from '@/store/AuthSlice';
+import { logoutUser, resetTokenAndCredentials } from '@/store/AuthSlice';
 import { toast } from 'sonner';
 import ShoppingCartWrapper from './ShoppingCartWrapper';
 import { fetchCartItems } from '@/store/Shop/cart-slice';
@@ -50,7 +50,10 @@ function MenuItems(){
        const {cartItems }=useSelector(state=>state.shopCart)
 
       function logoutHandler(){
-        dispatch(logoutUser())
+        // dispatch(logoutUser())
+        dispatch(resetTokenAndCredentials());
+        sessionStorage.clear();
+        navigate('/auth/login');
         toast("Logout SuccessFully")
       }
       useEffect(()=>{
